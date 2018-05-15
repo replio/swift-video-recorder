@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftVideoRecorder
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
