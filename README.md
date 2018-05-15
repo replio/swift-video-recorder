@@ -19,6 +19,12 @@ it, simply add the following line to your Podfile:
 ```ruby
 pod 'SwiftVideoRecorder'
 ```
+Add following code to your info.plist file
+```<key>NSCameraUsageDescription</key>
+<string>This will let you record videos.</string>
+<key>NSMicrophoneUsageDescription</key>
+<string>This will let you record videos with audio.</string>
+```
 
 ## Author
 

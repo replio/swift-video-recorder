@@ -64,7 +64,7 @@ public class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate 
     var time: Double = 0.0
     var completeListener: ((URL, URL, URL) -> ())!
 
-    init(completeListener: @escaping (URL, URL, URL) -> ()) {
+    public init(completeListener: @escaping (URL, URL, URL) -> ()) {
         super.init(nibName: nil, bundle: nil)
         self.completeListener = completeListener
     }
@@ -76,28 +76,7 @@ public class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate 
     override public func viewDidLoad() {
         super.viewDidLoad()
         print(#function)
-        let captureDeviceVideoFront = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .front).devices.first
-        let captureDeviceAudio = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInMicrophone], mediaType: .audio, position: .unspecified).devices.first
-        
-        do {
-            captureSession = AVCaptureSession()
-            let frontCaptureDeviceInput = try AVCaptureDeviceInput(device:captureDeviceVideoFront!)
-            let audioCaptureDeviceInput = try AVCaptureDeviceInput(device:captureDeviceAudio!)
-            captureSession?.addInput(frontCaptureDeviceInput)
-            captureSession?.addInput(audioCaptureDeviceInput)
-        } catch {
-            print(error)
-        }
-        
-        videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
-        videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        videoPreviewLayer?.frame = view.layer.bounds
-        view.layer.addSublayer(videoPreviewLayer!)
-
-        captureSession?.addOutput(videoOutput)
-        captureSession?.startRunning()
-
-        setupViews()
+        openCamera()
     }
     
     override public func viewWillAppear(_ animated: Bool) {
@@ -119,6 +98,53 @@ public class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate 
 
     override public var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    private func openCamera() {
+        let videoAuthStatus = AVCaptureDevice.authorizationStatus(for: .video)
+        let audioAuthStatus = AVCaptureDevice.authorizationStatus(for: .audio)
+        if videoAuthStatus == .authorized && audioAuthStatus == .authorized {
+            let captureDeviceVideoFront = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .front).devices.first
+            let captureDeviceAudio = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInMicrophone], mediaType: .audio, position: .unspecified).devices.first
+            
+            do {
+                captureSession = AVCaptureSession()
+                let frontCaptureDeviceInput = try AVCaptureDeviceInput(device:captureDeviceVideoFront!)
+                let audioCaptureDeviceInput = try AVCaptureDeviceInput(device:captureDeviceAudio!)
+                captureSession?.addInput(frontCaptureDeviceInput)
+                captureSession?.addInput(audioCaptureDeviceInput)
+            } catch {
+                print(error)
+            }
+            
+            videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
+            videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+            videoPreviewLayer?.frame = view.layer.bounds
+            view.layer.addSublayer(videoPreviewLayer!)
+            
+            captureSession?.addOutput(videoOutput)
+            captureSession?.startRunning()
+            
+            setupViews()
+        }
+        else if videoAuthStatus == .notDetermined {
+            AVCaptureDevice.requestAccess(for: .video) { (granted) in
+                if granted {
+                    DispatchQueue.main.async {
+                        self.openCamera()
+                    }
+                }
+            }
+        }
+        else if videoAuthStatus == .authorized && audioAuthStatus == .notDetermined {
+            AVCaptureDevice.requestAccess(for: .audio, completionHandler: { (granted) in
+                if granted {
+                    DispatchQueue.main.async {
+                        self.openCamera()
+                    }
+                }
+            })
+        }
     }
 
     func setupViews() {
@@ -318,7 +344,6 @@ public class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate 
                 let previewName = randomString(length: 5).appending(".jpg")
                 do {
                     try previewData.write(to: self.fileUrlForName(name: previewName))
-                    self.dismiss(animated: true)
                     self.completeListener(videoURL, self.fileUrlForName(name: convertedAudioName), self.fileUrlForName(name: previewName))
                 }
                 catch {
