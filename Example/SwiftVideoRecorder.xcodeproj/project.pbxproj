@@ -28,9 +28,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		35A9DAB9C18EFB6B54CD31CA /* SwiftVideoRecorder.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = SwiftVideoRecorder.podspec; path = ../SwiftVideoRecorder.podspec; sourceTree = "<group>"; };
+		35A9DAB9C18EFB6B54CD31CA /* SwiftVideoRecorder.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SwiftVideoRecorder.podspec; path = ../SwiftVideoRecorder.podspec; sourceTree = "<group>"; };
 		447DFEC41E7A1928C3E4314F /* Pods-SwiftVideoRecorder_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftVideoRecorder_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftVideoRecorder_Tests/Pods-SwiftVideoRecorder_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		4D119A4820B410C348C6F935 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		4D119A4820B410C348C6F935 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* SwiftVideoRecorder_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftVideoRecorder_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,7 +43,7 @@
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		7AADE1E9A381EEA4BE417C85 /* Pods_SwiftVideoRecorder_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftVideoRecorder_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		996354BA803302EE8B474097 /* Pods_SwiftVideoRecorder_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftVideoRecorder_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9999AF06C080BB7277213E2F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		9999AF06C080BB7277213E2F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		9F9DD06FBD2273EBA74183A7 /* Pods-SwiftVideoRecorder_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftVideoRecorder_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftVideoRecorder_Example/Pods-SwiftVideoRecorder_Example.release.xcconfig"; sourceTree = "<group>"; };
 		C40056F777E537BB57EE3CD0 /* Pods-SwiftVideoRecorder_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftVideoRecorder_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftVideoRecorder_Example/Pods-SwiftVideoRecorder_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		E351535ED80220BE8FD0A813 /* Pods-SwiftVideoRecorder_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftVideoRecorder_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftVideoRecorder_Tests/Pods-SwiftVideoRecorder_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -215,10 +215,12 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = V75RFW43CG;
 						LastSwiftMigration = 0900;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = V75RFW43CG;
 						LastSwiftMigration = 0900;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -517,7 +519,9 @@
 			baseConfigurationReference = C40056F777E537BB57EE3CD0 /* Pods-SwiftVideoRecorder_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = V75RFW43CG;
 				INFOPLIST_FILE = SwiftVideoRecorder/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
@@ -532,7 +536,9 @@
 			baseConfigurationReference = 9F9DD06FBD2273EBA74183A7 /* Pods-SwiftVideoRecorder_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = V75RFW43CG;
 				INFOPLIST_FILE = SwiftVideoRecorder/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
@@ -546,6 +552,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 447DFEC41E7A1928C3E4314F /* Pods-SwiftVideoRecorder_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = V75RFW43CG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -555,11 +562,13 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftVideoRecorder_Example.app/SwiftVideoRecorder_Example";
 			};
 			name = Debug;
 		};
@@ -567,16 +576,19 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E351535ED80220BE8FD0A813 /* Pods-SwiftVideoRecorder_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = V75RFW43CG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftVideoRecorder_Example.app/SwiftVideoRecorder_Example";
 			};
 			name = Release;
 		};

@@ -1,0 +1,6 @@
+framework module Pods_SwiftVideoRecorder_Tests {
+  umbrella header "Pods-SwiftVideoRecorder_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

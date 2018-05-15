@@ -1,0 +1,6 @@
+framework module Pods_SwiftVideoRecorder_Example {
+  umbrella header "Pods-SwiftVideoRecorder_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}
