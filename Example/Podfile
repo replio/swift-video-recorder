@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'SwiftVideoRecorder_Example' do
+  pod 'SwiftVideoRecorder', :path => '../'
+
+  target 'SwiftVideoRecorder_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
