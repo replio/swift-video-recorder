@@ -19,9 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
         window!.makeKeyAndVisible()
-        window?.rootViewController = RecorderVC(completeListener: { (url1, url2, url3) in
-            print("comeback from recorder")
-        })
+        window?.rootViewController = ViewController()
         return true
     }
 

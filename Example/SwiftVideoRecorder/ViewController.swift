@@ -9,16 +9,22 @@
 import UIKit
 import SwiftVideoRecorder
 
-class ViewController: UIViewController {
+class ViewController: SwiftVideoRecorderVC {
 
+    override init() {
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func swiftVideoRecorder(didCompleteRecordingWithUrl url: URL) {
+        print(#function)
     }
 
 }
