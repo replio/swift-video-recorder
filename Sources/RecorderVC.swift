@@ -33,20 +33,14 @@ open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.isStatusBarHidden = true
     }
 
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        UIApplication.shared.isStatusBarHidden = false
     }
 
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-    }
-
-    override open var prefersStatusBarHidden: Bool {
-        return true
     }
     
     private func openCamera() {
@@ -112,21 +106,25 @@ open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
     
     public func startRecording() {
         print(#function)
-        isRecording = true
-        outputs.removeAll()
-        timer = Timer.scheduledTimer(timeInterval: RecorderVC.INTERVAL, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-        time = 0.0
-        resumeRecording()
+        if !isRecording {
+            isRecording = true
+            outputs.removeAll()
+            timer = Timer.scheduledTimer(timeInterval: RecorderVC.INTERVAL, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+            time = 0.0
+            resumeRecording()
+        }
     }
     
     public func stopRecording() {
         print(#function)
-        isRecording = false
-        if timer != nil {
-            timer!.invalidate()
+        if isRecording {
+            isRecording = false
+            if timer != nil {
+                timer!.invalidate()
+            }
+            timer = nil
+            movieFileOutput.stopRecording()
         }
-        timer = nil
-        movieFileOutput.stopRecording()
     }
     
     private func resumeRecording() {
