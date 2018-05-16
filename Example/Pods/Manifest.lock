@@ -1,7 +1,9 @@
 PODS:
+  - SwiftVideoPlayer (0.1.1)
   - SwiftVideoRecorder (0.1.0)
 
 DEPENDENCIES:
+  - SwiftVideoPlayer
   - SwiftVideoRecorder (from `../`)
 
 EXTERNAL SOURCES:
@@ -9,8 +11,9 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
+  SwiftVideoPlayer: ce9107984b4679f4579f3309758a6b82a297db9e
   SwiftVideoRecorder: 7e78014a7c61db718080811b44ef99853098e0d7
 
-PODFILE CHECKSUM: e326992075a6c39d2b4ce0b4ac4a2dc4ca755fea
+PODFILE CHECKSUM: ae69b5aee0d18ce3d49d8ea4bf87d19089d4dd69
 
 COCOAPODS: 1.3.1

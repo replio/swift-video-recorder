@@ -1,0 +1,6 @@
+framework module SwiftVideoPlayer {
+  umbrella header "SwiftVideoPlayer-umbrella.h"
+
+  export *
+  module * { export * }
+}

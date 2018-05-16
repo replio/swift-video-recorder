@@ -5,7 +5,7 @@
 import UIKit
 import AVFoundation
 
-open class SwiftVideoRecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
+open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
     private static let MAX_DURATION = 60.0
     private static let INTERVAL = 1.0
 
@@ -15,7 +15,7 @@ open class SwiftVideoRecorderVC: UIViewController, AVCaptureFileOutputRecordingD
     var outputs = [URL]()
     var timer: Timer? = nil
     var time: Double = 0.0
-    var isRecording: Bool = false
+    public private(set) var isRecording: Bool = false
 
     public init() {
         super.init(nibName: nil, bundle: nil)
@@ -103,10 +103,10 @@ open class SwiftVideoRecorderVC: UIViewController, AVCaptureFileOutputRecordingD
         }
     }
     
-    @objc func timerAction(){
-        time+=SwiftVideoRecorderVC.INTERVAL
+    @objc func timerAction() {
+        time+=RecorderVC.INTERVAL
         print(#function, time)
-        if time >= SwiftVideoRecorderVC.MAX_DURATION {
+        if time >= RecorderVC.MAX_DURATION {
             stopRecording()
         }
     }
@@ -115,7 +115,7 @@ open class SwiftVideoRecorderVC: UIViewController, AVCaptureFileOutputRecordingD
         print(#function)
         isRecording = true
         outputs.removeAll()
-        timer = Timer.scheduledTimer(timeInterval: SwiftVideoRecorderVC.INTERVAL, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: RecorderVC.INTERVAL, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         time = 0.0
         resumeRecording()
     }
@@ -128,6 +128,11 @@ open class SwiftVideoRecorderVC: UIViewController, AVCaptureFileOutputRecordingD
         }
         timer = nil
         movieFileOutput.stopRecording()
+    }
+    
+    private func resumeRecording() {
+        let path = NSTemporaryDirectory().appending(UUID().uuidString).appending(".mov")
+        movieFileOutput.startRecording(to: URL(fileURLWithPath: path) , recordingDelegate: self)
     }
     
     public func switchCamera() {
@@ -144,26 +149,11 @@ open class SwiftVideoRecorderVC: UIViewController, AVCaptureFileOutputRecordingD
             resumeRecording()
         }
     }
-
-    private func resumeRecording() {
-        movieFileOutput.startRecording(to: URL(fileURLWithPath:generateNextOutputPath()) , recordingDelegate: self)
-    }
-
-    private func generateThumbnail(_ url : URL) -> UIImage? {
-        print(#function)
-        let asset = AVURLAsset(url: url, options: nil)
-        let imgGenerator = AVAssetImageGenerator(asset: asset)
-        imgGenerator.appliesPreferredTrackTransform = true
-        do {
-            let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(0, 1), actualTime: nil)
-            // !! check the error before proceeding
-            let uiImage = UIImage(cgImage: cgImage)
-            return uiImage
+    
+    public func isFacingFront() -> Bool {
+        return captureSession!.inputs.contains { input in
+            (input as! AVCaptureDeviceInput).device.position == .front
         }
-        catch {
-            print(error)
-        }
-        return nil
     }
 
     private func mergeVideoClips() {
@@ -191,33 +181,19 @@ open class SwiftVideoRecorderVC: UIViewController, AVCaptureFileOutputRecordingD
         videoTrack?.preferredTransform = (videoTrack?.preferredTransform.rotated(by: .pi / 2))!
         videoTrack?.preferredTransform = (videoTrack?.preferredTransform.scaledBy(x: 1, y: -1))!
         
-        let videoName = randomString(length: 5).appending(".mov")
+        let videoName = UUID().uuidString.appending(".mov")
         let videoExporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetMediumQuality)
 
-        videoExporter?.outputURL = fileUrlForName(name: videoName)
+        let outputURL = URL(fileURLWithPath: NSTemporaryDirectory().appending(videoName))
+        videoExporter?.outputURL = outputURL
         videoExporter?.shouldOptimizeForNetworkUse = true
         videoExporter?.outputFileType = AVFileType.mov
         videoExporter?.exportAsynchronously(completionHandler: { () -> Void in
-            print("video exporting complete", self.fileUrlForName(name: videoName))
+            print("video exporting complete", outputURL)
             DispatchQueue.main.async {
-                self.complete(videoURL: self.fileUrlForName(name: videoName))
+                self.swiftVideoRecorder(didCompleteRecordingWithUrl: outputURL)
             }
         })
-    }
-
-    private func complete(videoURL: URL){
-        print(#function)
-        swiftVideoRecorder(didCompleteRecordingWithUrl: videoURL)
-    }
-
-    private func generateNextOutputPath() -> String {
-        return NSTemporaryDirectory().appending(randomString(length: 5)).appending(".mov")
-    }
-    
-    public func isFacingFront() -> Bool {
-        return captureSession!.inputs.contains { input in
-            (input as! AVCaptureDeviceInput).device.position == .front
-         }
     }
 
     deinit {
@@ -230,22 +206,6 @@ open class SwiftVideoRecorderVC: UIViewController, AVCaptureFileOutputRecordingD
         }
         timer = nil
         time = 0.0
-    }
-
-    private func fileUrlForName(name: String) -> URL {
-        return URL(fileURLWithPath: NSTemporaryDirectory().appending(name))
-    }
-    
-    private func randomString(length:Int) -> String {
-        let characters:NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        let stringLength = UInt32(characters.length)
-        var randomString = ""
-        for _ in 0 ..< length {
-            let rand = arc4random_uniform(stringLength)
-            var nextChar = characters.character(at:Int(rand))
-            randomString += NSString(characters: &nextChar, length:1) as String
-        }
-        return randomString
     }
     
     // Delegate methods

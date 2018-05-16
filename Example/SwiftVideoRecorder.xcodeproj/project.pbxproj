@@ -317,10 +317,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SwiftVideoRecorder_Example/Pods-SwiftVideoRecorder_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwiftVideoPlayer/SwiftVideoPlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftVideoRecorder/SwiftVideoRecorder.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftVideoPlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftVideoRecorder.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

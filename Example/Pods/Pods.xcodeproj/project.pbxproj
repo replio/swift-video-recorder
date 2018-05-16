@@ -7,69 +7,98 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		003CB02749E37B91A51B12419091A759 /* SwiftVideoRecorderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6DAB1249D9D21EA4D604CD0226EC9A /* SwiftVideoRecorderVC.swift */; };
-		6ED539D8A66E5F50D5463FD07A319087 /* SwiftVideoRecorder-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E1DDBA7702729C2C34055BF759B39D58 /* SwiftVideoRecorder-dummy.m */; };
-		75D3E2E450E1584B07BDE2A2538B68EA /* Pods-SwiftVideoRecorder_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AB45F7CB317B9593F8E36F6A50B631F /* Pods-SwiftVideoRecorder_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		863892FDE8B4D570B7216461335FF9E8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		0E9B8F4CFD29AD6E7D16AEED11FE59EC /* SwiftVideoRecorder-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 50E3034B24286DCE4AEEF78A5D6EAD13 /* SwiftVideoRecorder-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1B84476BDDCBE5DE8911F1AF6E0F7A81 /* RecorderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE07E8FFF227FDDB025F6C81E7DB83B8 /* RecorderVC.swift */; };
+		1F7AFE1AB73F5A72CE261DBE4928634D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		3888142E0B7441CDAA3564E4F88981D4 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC758F33D7626EEE808AD6D3D505758 /* PlayerView.swift */; };
+		49CB50490F911A37F0DE1FEF8B60989E /* SwiftVideoPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868620E2BCCC52B40EE365206F847DD8 /* SwiftVideoPlayerVC.swift */; };
+		556BCFAA0C7B212F7AD0B6FCAEBDBEA5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		6B48FEB2E2817C9B347D9CC8D71D836D /* SwiftVideoPlayer-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DA406E879888B736DFEC5067D2FAC3AE /* SwiftVideoPlayer-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		80DBE82E50157330A59AB1A7E2CBAC78 /* SwiftVideoRecorder-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9020EB8C557A46CBC8E048CD7E523B91 /* SwiftVideoRecorder-dummy.m */; };
+		8590B5DA68D939B445D7620FBC7C9F41 /* Pods-SwiftVideoRecorder_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AA32EF02EFA9017CFBC980C37F28FCBA /* Pods-SwiftVideoRecorder_Example-dummy.m */; };
 		88D248F7C38A8C46551B1A546B79622C /* Pods-SwiftVideoRecorder_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F658E212AB433769ED6B242E03D4A345 /* Pods-SwiftVideoRecorder_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8E551E3DB5996680C17193F6ACC029F8 /* Pods-SwiftVideoRecorder_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBC0167542427C8566DBDBA442C1A41 /* Pods-SwiftVideoRecorder_Tests-dummy.m */; };
-		9F7A67478BB4754D5047E6A8A59BD5C3 /* Pods-SwiftVideoRecorder_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AA32EF02EFA9017CFBC980C37F28FCBA /* Pods-SwiftVideoRecorder_Example-dummy.m */; };
-		A443E4A8278362B501EB314560DFA934 /* SwiftVideoRecorder-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C6BA3EB0652B3D1BD3AC1BCAF4311F6A /* SwiftVideoRecorder-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D2F9EFCB84E7468D376432A0FEDE3920 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		D5CB2D848646D1489EAE0AF6DA646029 /* SwiftVideoPlayer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A97F37F72ADD7B4A5CFF3B5DA83CB7 /* SwiftVideoPlayer-dummy.m */; };
+		E7AAEC87DD6A4FAD59DA4462740A9519 /* Pods-SwiftVideoRecorder_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AB45F7CB317B9593F8E36F6A50B631F /* Pods-SwiftVideoRecorder_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F7575C34569BBA36D90C3862AAAF48B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		FFA1E26ACFB2756263B111CA057486F3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A90898C8336CA88D4639DF63D7AEEEBF /* PBXContainerItemProxy */ = {
+		C52072B4DCF6A8899FAFFE9FF6017C57 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 4D3B510FB04265802251170DF6BFEB1E;
+			remoteGlobalIDString = C0A14CF9A12FF2802BE17F8AA24D73DC;
 			remoteInfo = SwiftVideoRecorder;
+		};
+		D39467C2EC9F39A59878095A603840F9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B5DC4814DA949D5E85EC36D3917F27C5;
+			remoteInfo = SwiftVideoPlayer;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		02896583D9FE1D73DF9A8981C6053534 /* SwiftVideoRecorder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftVideoRecorder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E34BBD4118297B5B1CA8DB64B43F304 /* Pods-SwiftVideoRecorder_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SwiftVideoRecorder_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		22A793498F6051D51442940D9B574B21 /* Pods-SwiftVideoRecorder_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SwiftVideoRecorder_Tests-resources.sh"; sourceTree = "<group>"; };
 		268F82A63F9D79FE59A6825F51D1B59C /* Pods-SwiftVideoRecorder_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SwiftVideoRecorder_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		282653A9B7AF5B67982E6634E489B22E /* SwiftVideoPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftVideoPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34225C19BC8D9C85AF31DA55FD3FB43E /* Pods-SwiftVideoRecorder_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SwiftVideoRecorder_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		41ABFF47BD121395D1B4967CFB6F7B2B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		48704567A71F0A84DFA106EE302939D7 /* SwiftVideoRecorder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftVideoRecorder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C2A120557F082F77225A40F3CD573C1 /* Pods-SwiftVideoRecorder_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SwiftVideoRecorder_Example.release.xcconfig"; sourceTree = "<group>"; };
-		4D6DAB1249D9D21EA4D604CD0226EC9A /* SwiftVideoRecorderVC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftVideoRecorderVC.swift; path = Sources/SwiftVideoRecorderVC.swift; sourceTree = "<group>"; };
+		50E3034B24286DCE4AEEF78A5D6EAD13 /* SwiftVideoRecorder-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftVideoRecorder-umbrella.h"; sourceTree = "<group>"; };
 		54BBB10914C969D970C70E884CB0FDB7 /* Pods-SwiftVideoRecorder_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SwiftVideoRecorder_Example-resources.sh"; sourceTree = "<group>"; };
+		56A97F37F72ADD7B4A5CFF3B5DA83CB7 /* SwiftVideoPlayer-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftVideoPlayer-dummy.m"; sourceTree = "<group>"; };
+		62216CA9A5A3903C81C051DED3E1FB81 /* SwiftVideoPlayer-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftVideoPlayer-prefix.pch"; sourceTree = "<group>"; };
 		635292152F47F8EBC6CC7BCEC8F1AEE3 /* Pods-SwiftVideoRecorder_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SwiftVideoRecorder_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		6AB45F7CB317B9593F8E36F6A50B631F /* Pods-SwiftVideoRecorder_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SwiftVideoRecorder_Example-umbrella.h"; sourceTree = "<group>"; };
 		75EF125D706AF629E180C20CDB0BBA46 /* Pods-SwiftVideoRecorder_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SwiftVideoRecorder_Tests.modulemap"; sourceTree = "<group>"; };
+		784EBE8C35244D8C2B68ACF21283C3C8 /* SwiftVideoRecorder-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftVideoRecorder-prefix.pch"; sourceTree = "<group>"; };
 		7BBC0167542427C8566DBDBA442C1A41 /* Pods-SwiftVideoRecorder_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SwiftVideoRecorder_Tests-dummy.m"; sourceTree = "<group>"; };
-		7E96EE61B33A31057EB6BEBCC8797E99 /* Pods_SwiftVideoRecorder_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftVideoRecorder_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C8D0901544B220755D5FE0879648C12 /* Pods_SwiftVideoRecorder_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftVideoRecorder_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		85983C782F9693765F0C1D6AFF39C5B7 /* Pods_SwiftVideoRecorder_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftVideoRecorder_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		868620E2BCCC52B40EE365206F847DD8 /* SwiftVideoPlayerVC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftVideoPlayerVC.swift; path = Sources/SwiftVideoPlayerVC.swift; sourceTree = "<group>"; };
+		9020EB8C557A46CBC8E048CD7E523B91 /* SwiftVideoRecorder-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftVideoRecorder-dummy.m"; sourceTree = "<group>"; };
 		92AF39F3BBDAC5BF911E297B8D690F75 /* Pods-SwiftVideoRecorder_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SwiftVideoRecorder_Example-frameworks.sh"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		98F903B0B4BA0F6CC639C2F3B4553049 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A45F8837796138EC8E0EF7F2C8B19DE5 /* SwiftVideoRecorder.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftVideoRecorder.xcconfig; sourceTree = "<group>"; };
+		A0ADB735DE478BC1365D2BF7B9CE1E23 /* SwiftVideoRecorder.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SwiftVideoRecorder.modulemap; sourceTree = "<group>"; };
 		AA32EF02EFA9017CFBC980C37F28FCBA /* Pods-SwiftVideoRecorder_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SwiftVideoRecorder_Example-dummy.m"; sourceTree = "<group>"; };
+		B79FDAA50496921CC1F51060CEAD6690 /* SwiftVideoPlayer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftVideoPlayer.xcconfig; sourceTree = "<group>"; };
 		B949FE4BB8A65E8E7890E9DE98A14C69 /* Pods-SwiftVideoRecorder_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SwiftVideoRecorder_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		BC689803F2BD0C48C1DEBB6EFDAA292C /* Pods-SwiftVideoRecorder_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SwiftVideoRecorder_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		BE9DB3BF897BBCBEAD90F5333B1AD5D5 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BEE0218B2BEE0C67506B028D9A93AA89 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C167EFB0AF26F2F00237480C24345552 /* Pods-SwiftVideoRecorder_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SwiftVideoRecorder_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		C6BA3EB0652B3D1BD3AC1BCAF4311F6A /* SwiftVideoRecorder-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftVideoRecorder-umbrella.h"; sourceTree = "<group>"; };
-		CDC3B574F10B0AC7FDF6B8DC1A6A3C6F /* SwiftVideoRecorder-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftVideoRecorder-prefix.pch"; sourceTree = "<group>"; };
+		C5B3B6758637C0D07E14CCB1AD8C359A /* SwiftVideoPlayer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SwiftVideoPlayer.modulemap; sourceTree = "<group>"; };
+		CE07E8FFF227FDDB025F6C81E7DB83B8 /* RecorderVC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RecorderVC.swift; path = Sources/RecorderVC.swift; sourceTree = "<group>"; };
+		D1F5BAAC3B9EEC24EF5F8ABD9B3A2EC3 /* SwiftVideoRecorder.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftVideoRecorder.xcconfig; sourceTree = "<group>"; };
+		DA406E879888B736DFEC5067D2FAC3AE /* SwiftVideoPlayer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftVideoPlayer-umbrella.h"; sourceTree = "<group>"; };
 		DC4CB34B3045290E4DABE46C354604CE /* Pods-SwiftVideoRecorder_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SwiftVideoRecorder_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		E1DDBA7702729C2C34055BF759B39D58 /* SwiftVideoRecorder-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftVideoRecorder-dummy.m"; sourceTree = "<group>"; };
-		EF0AB97C32E1D3CC4A5CF29553EE4AD5 /* SwiftVideoRecorder.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SwiftVideoRecorder.modulemap; sourceTree = "<group>"; };
+		E2C670193F31720310DD429D5C517A1A /* Pods_SwiftVideoRecorder_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftVideoRecorder_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F658E212AB433769ED6B242E03D4A345 /* Pods-SwiftVideoRecorder_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SwiftVideoRecorder_Tests-umbrella.h"; sourceTree = "<group>"; };
 		FA4788C1F6079F3CA7030C43F684824A /* Pods-SwiftVideoRecorder_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SwiftVideoRecorder_Example.modulemap"; sourceTree = "<group>"; };
 		FD58E34CD3D3580580050A6795F85CC8 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FFC758F33D7626EEE808AD6D3D505758 /* PlayerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlayerView.swift; path = Sources/PlayerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		79AAAFE431553D482C8B5AD6BA02B449 /* Frameworks */ = {
+		208090DE7CDA2EBD186012A7E4AC9AFE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				863892FDE8B4D570B7216461335FF9E8 /* Foundation.framework in Frameworks */,
+				556BCFAA0C7B212F7AD0B6FCAEBDBEA5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CDDA6596974643968D0DCBE608956C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FFA1E26ACFB2756263B111CA057486F3 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,11 +110,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C287FD897771740268320F7B06B83A92 /* Frameworks */ = {
+		D336C674A4B200754B452CC37B70CB88 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2F9EFCB84E7468D376432A0FEDE3920 /* Foundation.framework in Frameworks */,
+				1F7AFE1AB73F5A72CE261DBE4928634D /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,37 +139,60 @@
 			path = "Target Support Files/Pods-SwiftVideoRecorder_Tests";
 			sourceTree = "<group>";
 		};
-		3625B177E7A3227B4673A8BAC179DA2A /* Support Files */ = {
+		2E0DD46CE34C0FBA373713D780860097 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				98F903B0B4BA0F6CC639C2F3B4553049 /* Info.plist */,
-				EF0AB97C32E1D3CC4A5CF29553EE4AD5 /* SwiftVideoRecorder.modulemap */,
-				A45F8837796138EC8E0EF7F2C8B19DE5 /* SwiftVideoRecorder.xcconfig */,
-				E1DDBA7702729C2C34055BF759B39D58 /* SwiftVideoRecorder-dummy.m */,
-				CDC3B574F10B0AC7FDF6B8DC1A6A3C6F /* SwiftVideoRecorder-prefix.pch */,
-				C6BA3EB0652B3D1BD3AC1BCAF4311F6A /* SwiftVideoRecorder-umbrella.h */,
+				D02A7F4F2E4CB33F97720AA88A2364E2 /* SwiftVideoRecorder */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		5BF1926FEA34D256D5CB7D0046BBF809 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				BEE0218B2BEE0C67506B028D9A93AA89 /* Info.plist */,
+				A0ADB735DE478BC1365D2BF7B9CE1E23 /* SwiftVideoRecorder.modulemap */,
+				D1F5BAAC3B9EEC24EF5F8ABD9B3A2EC3 /* SwiftVideoRecorder.xcconfig */,
+				9020EB8C557A46CBC8E048CD7E523B91 /* SwiftVideoRecorder-dummy.m */,
+				784EBE8C35244D8C2B68ACF21283C3C8 /* SwiftVideoRecorder-prefix.pch */,
+				50E3034B24286DCE4AEEF78A5D6EAD13 /* SwiftVideoRecorder-umbrella.h */,
 			);
 			name = "Support Files";
 			path = "Example/Pods/Target Support Files/SwiftVideoRecorder";
-			sourceTree = "<group>";
-		};
-		6F4B84C287E5C97A7AB904CDA3587DF0 /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				FD4521D2B94ECD948685FDC63695CF32 /* SwiftVideoRecorder */,
-			);
-			name = "Development Pods";
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				6F4B84C287E5C97A7AB904CDA3587DF0 /* Development Pods */,
+				2E0DD46CE34C0FBA373713D780860097 /* Development Pods */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				FF2E1AE4C9A9348DE8BC54D57B5EE4B3 /* Products */,
+				9575BE73BE231D4FB429C160AD35C0D5 /* Pods */,
+				FE32C772C105E60B14E19349525805BE /* Products */,
 				DC77BD6EEB240DAF629C5C1C6C937743 /* Targets Support Files */,
 			);
+			sourceTree = "<group>";
+		};
+		9575BE73BE231D4FB429C160AD35C0D5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E18D2EBFFADE43B19DF308E5C0B34B5A /* SwiftVideoPlayer */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		96D4EF03D4451D60C0155AB89059624B /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				41ABFF47BD121395D1B4967CFB6F7B2B /* Info.plist */,
+				C5B3B6758637C0D07E14CCB1AD8C359A /* SwiftVideoPlayer.modulemap */,
+				B79FDAA50496921CC1F51060CEAD6690 /* SwiftVideoPlayer.xcconfig */,
+				56A97F37F72ADD7B4A5CFF3B5DA83CB7 /* SwiftVideoPlayer-dummy.m */,
+				62216CA9A5A3903C81C051DED3E1FB81 /* SwiftVideoPlayer-prefix.pch */,
+				DA406E879888B736DFEC5067D2FAC3AE /* SwiftVideoPlayer-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SwiftVideoPlayer";
 			sourceTree = "<group>";
 		};
 		A2234718DC22881ECDEEB22AC4DB3E15 /* Pods-SwiftVideoRecorder_Example */ = {
@@ -169,6 +221,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D02A7F4F2E4CB33F97720AA88A2364E2 /* SwiftVideoRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				CE07E8FFF227FDDB025F6C81E7DB83B8 /* RecorderVC.swift */,
+				5BF1926FEA34D256D5CB7D0046BBF809 /* Support Files */,
+			);
+			name = SwiftVideoRecorder;
+			path = ../..;
+			sourceTree = "<group>";
+		};
 		D35AF013A5F0BAD4F32504907A52519E /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,22 +248,23 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		FD4521D2B94ECD948685FDC63695CF32 /* SwiftVideoRecorder */ = {
+		E18D2EBFFADE43B19DF308E5C0B34B5A /* SwiftVideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				4D6DAB1249D9D21EA4D604CD0226EC9A /* SwiftVideoRecorderVC.swift */,
-				3625B177E7A3227B4673A8BAC179DA2A /* Support Files */,
+				FFC758F33D7626EEE808AD6D3D505758 /* PlayerView.swift */,
+				868620E2BCCC52B40EE365206F847DD8 /* SwiftVideoPlayerVC.swift */,
+				96D4EF03D4451D60C0155AB89059624B /* Support Files */,
 			);
-			name = SwiftVideoRecorder;
-			path = ../..;
+			path = SwiftVideoPlayer;
 			sourceTree = "<group>";
 		};
-		FF2E1AE4C9A9348DE8BC54D57B5EE4B3 /* Products */ = {
+		FE32C772C105E60B14E19349525805BE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7E96EE61B33A31057EB6BEBCC8797E99 /* Pods_SwiftVideoRecorder_Example.framework */,
-				8C8D0901544B220755D5FE0879648C12 /* Pods_SwiftVideoRecorder_Tests.framework */,
-				02896583D9FE1D73DF9A8981C6053534 /* SwiftVideoRecorder.framework */,
+				85983C782F9693765F0C1D6AFF39C5B7 /* Pods_SwiftVideoRecorder_Example.framework */,
+				E2C670193F31720310DD429D5C517A1A /* Pods_SwiftVideoRecorder_Tests.framework */,
+				282653A9B7AF5B67982E6634E489B22E /* SwiftVideoPlayer.framework */,
+				48704567A71F0A84DFA106EE302939D7 /* SwiftVideoRecorder.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -209,19 +272,11 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		5D221DA8C0E3068394971B3D6803AE58 /* Headers */ = {
+		1262A5C2A5CB2BB94975C4CCC7A23F90 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A443E4A8278362B501EB314560DFA934 /* SwiftVideoRecorder-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		605B680D432A620FE40E5FD7C89AAD2D /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				75D3E2E450E1584B07BDE2A2538B68EA /* Pods-SwiftVideoRecorder_Example-umbrella.h in Headers */,
+				6B48FEB2E2817C9B347D9CC8D71D836D /* SwiftVideoPlayer-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,42 +288,42 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BEC2F9F58A9D3E73CFF72C5BAC84F56E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7AAEC87DD6A4FAD59DA4462740A9519 /* Pods-SwiftVideoRecorder_Example-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D5CD2020F393B96B046970CEBCDF2949 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E9B8F4CFD29AD6E7D16AEED11FE59EC /* SwiftVideoRecorder-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		4D3B510FB04265802251170DF6BFEB1E /* SwiftVideoRecorder */ = {
+		79C86ED72755B3E946F98D65BC6E9CE0 /* Pods-SwiftVideoRecorder_Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F2C06D240FF49BE1491BC35F669D7991 /* Build configuration list for PBXNativeTarget "SwiftVideoRecorder" */;
+			buildConfigurationList = 88D8BB26ABFA0A1B7A51EC363E748516 /* Build configuration list for PBXNativeTarget "Pods-SwiftVideoRecorder_Example" */;
 			buildPhases = (
-				9D6A7574542082F2B9DFD7A838409848 /* Sources */,
-				79AAAFE431553D482C8B5AD6BA02B449 /* Frameworks */,
-				5D221DA8C0E3068394971B3D6803AE58 /* Headers */,
+				700A75BDBC6211F63717809B64B0308A /* Sources */,
+				D336C674A4B200754B452CC37B70CB88 /* Frameworks */,
+				BEC2F9F58A9D3E73CFF72C5BAC84F56E /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-			);
-			name = SwiftVideoRecorder;
-			productName = SwiftVideoRecorder;
-			productReference = 02896583D9FE1D73DF9A8981C6053534 /* SwiftVideoRecorder.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		623642447E3FDF938BA7BAAABD1A905A /* Pods-SwiftVideoRecorder_Example */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FE904D9B2FCC8AACEBAA1CB3453FB291 /* Build configuration list for PBXNativeTarget "Pods-SwiftVideoRecorder_Example" */;
-			buildPhases = (
-				93BA37AE9FB02D74247DA6CBE49A7CF2 /* Sources */,
-				C287FD897771740268320F7B06B83A92 /* Frameworks */,
-				605B680D432A620FE40E5FD7C89AAD2D /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				0C0C0FC455DD5464471C32D9CC633354 /* PBXTargetDependency */,
+				42076214959EE8461ED12D8F045E0FAF /* PBXTargetDependency */,
+				7AC29193AE3C90C7E88D658892EB7846 /* PBXTargetDependency */,
 			);
 			name = "Pods-SwiftVideoRecorder_Example";
 			productName = "Pods-SwiftVideoRecorder_Example";
-			productReference = 7E96EE61B33A31057EB6BEBCC8797E99 /* Pods_SwiftVideoRecorder_Example.framework */;
+			productReference = 85983C782F9693765F0C1D6AFF39C5B7 /* Pods_SwiftVideoRecorder_Example.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		A7477BD46155117B230BFB147E6F9A71 /* Pods-SwiftVideoRecorder_Tests */ = {
@@ -285,7 +340,41 @@
 			);
 			name = "Pods-SwiftVideoRecorder_Tests";
 			productName = "Pods-SwiftVideoRecorder_Tests";
-			productReference = 8C8D0901544B220755D5FE0879648C12 /* Pods_SwiftVideoRecorder_Tests.framework */;
+			productReference = E2C670193F31720310DD429D5C517A1A /* Pods_SwiftVideoRecorder_Tests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		B5DC4814DA949D5E85EC36D3917F27C5 /* SwiftVideoPlayer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6AF4E05ED743B0A6F3547F311DB748C5 /* Build configuration list for PBXNativeTarget "SwiftVideoPlayer" */;
+			buildPhases = (
+				B9DDF899DC53B0840775C610F8A870BE /* Sources */,
+				5CDDA6596974643968D0DCBE608956C1 /* Frameworks */,
+				1262A5C2A5CB2BB94975C4CCC7A23F90 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftVideoPlayer;
+			productName = SwiftVideoPlayer;
+			productReference = 282653A9B7AF5B67982E6634E489B22E /* SwiftVideoPlayer.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C0A14CF9A12FF2802BE17F8AA24D73DC /* SwiftVideoRecorder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 14D27E0A973265A25BCB08F68D91E4AE /* Build configuration list for PBXNativeTarget "SwiftVideoRecorder" */;
+			buildPhases = (
+				F64D7E2861DA92EDE36375C65B55D5C8 /* Sources */,
+				208090DE7CDA2EBD186012A7E4AC9AFE /* Frameworks */,
+				D5CD2020F393B96B046970CEBCDF2949 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftVideoRecorder;
+			productName = SwiftVideoRecorder;
+			productReference = 48704567A71F0A84DFA106EE302939D7 /* SwiftVideoRecorder.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -295,7 +384,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -305,13 +394,14 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = FF2E1AE4C9A9348DE8BC54D57B5EE4B3 /* Products */;
+			productRefGroup = FE32C772C105E60B14E19349525805BE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				623642447E3FDF938BA7BAAABD1A905A /* Pods-SwiftVideoRecorder_Example */,
+				79C86ED72755B3E946F98D65BC6E9CE0 /* Pods-SwiftVideoRecorder_Example */,
 				A7477BD46155117B230BFB147E6F9A71 /* Pods-SwiftVideoRecorder_Tests */,
-				4D3B510FB04265802251170DF6BFEB1E /* SwiftVideoRecorder */,
+				B5DC4814DA949D5E85EC36D3917F27C5 /* SwiftVideoPlayer */,
+				C0A14CF9A12FF2802BE17F8AA24D73DC /* SwiftVideoRecorder */,
 			);
 		};
 /* End PBXProject section */
@@ -325,69 +415,51 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		93BA37AE9FB02D74247DA6CBE49A7CF2 /* Sources */ = {
+		700A75BDBC6211F63717809B64B0308A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F7A67478BB4754D5047E6A8A59BD5C3 /* Pods-SwiftVideoRecorder_Example-dummy.m in Sources */,
+				8590B5DA68D939B445D7620FBC7C9F41 /* Pods-SwiftVideoRecorder_Example-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9D6A7574542082F2B9DFD7A838409848 /* Sources */ = {
+		B9DDF899DC53B0840775C610F8A870BE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				003CB02749E37B91A51B12419091A759 /* SwiftVideoRecorderVC.swift in Sources */,
-				6ED539D8A66E5F50D5463FD07A319087 /* SwiftVideoRecorder-dummy.m in Sources */,
+				3888142E0B7441CDAA3564E4F88981D4 /* PlayerView.swift in Sources */,
+				D5CB2D848646D1489EAE0AF6DA646029 /* SwiftVideoPlayer-dummy.m in Sources */,
+				49CB50490F911A37F0DE1FEF8B60989E /* SwiftVideoPlayerVC.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F64D7E2861DA92EDE36375C65B55D5C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				80DBE82E50157330A59AB1A7E2CBAC78 /* SwiftVideoRecorder-dummy.m in Sources */,
+				1B84476BDDCBE5DE8911F1AF6E0F7A81 /* RecorderVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0C0C0FC455DD5464471C32D9CC633354 /* PBXTargetDependency */ = {
+		42076214959EE8461ED12D8F045E0FAF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftVideoPlayer;
+			target = B5DC4814DA949D5E85EC36D3917F27C5 /* SwiftVideoPlayer */;
+			targetProxy = D39467C2EC9F39A59878095A603840F9 /* PBXContainerItemProxy */;
+		};
+		7AC29193AE3C90C7E88D658892EB7846 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SwiftVideoRecorder;
-			target = 4D3B510FB04265802251170DF6BFEB1E /* SwiftVideoRecorder */;
-			targetProxy = A90898C8336CA88D4639DF63D7AEEEBF /* PBXContainerItemProxy */;
+			target = C0A14CF9A12FF2802BE17F8AA24D73DC /* SwiftVideoRecorder */;
+			targetProxy = C52072B4DCF6A8899FAFFE9FF6017C57 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		154F5F083B62CE08F5989EA1D9AB7F97 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC4CB34B3045290E4DABE46C354604CE /* Pods-SwiftVideoRecorder_Example.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-SwiftVideoRecorder_Example/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-SwiftVideoRecorder_Example/Pods-SwiftVideoRecorder_Example.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_SwiftVideoRecorder_Example;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		5A3A108D3577A3BB209C47F1665D3717 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 268F82A63F9D79FE59A6825F51D1B59C /* Pods-SwiftVideoRecorder_Tests.release.xcconfig */;
@@ -421,9 +493,9 @@
 			};
 			name = Release;
 		};
-		619B75165166E2D458A79FD5BDD306E9 /* Debug */ = {
+		6D53772D99B6C874A013635720C4233C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A45F8837796138EC8E0EF7F2C8B19DE5 /* SwiftVideoRecorder.xcconfig */;
+			baseConfigurationReference = 4C2A120557F082F77225A40F3CD573C1 /* Pods-SwiftVideoRecorder_Example.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -434,23 +506,26 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SwiftVideoRecorder/SwiftVideoRecorder-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SwiftVideoRecorder/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-SwiftVideoRecorder_Example/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SwiftVideoRecorder/SwiftVideoRecorder.modulemap";
-				PRODUCT_NAME = SwiftVideoRecorder;
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-SwiftVideoRecorder_Example/Pods-SwiftVideoRecorder_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_SwiftVideoRecorder_Example;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
 		7C07ED8089F70A31B83996A8910D7F18 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -466,7 +541,6 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -474,7 +548,6 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -513,6 +586,38 @@
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
+		};
+		7D773B6AFE2EC5B8608E774254323851 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B79FDAA50496921CC1F51060CEAD6690 /* SwiftVideoPlayer.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftVideoPlayer/SwiftVideoPlayer-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftVideoPlayer/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwiftVideoPlayer/SwiftVideoPlayer.modulemap";
+				PRODUCT_NAME = SwiftVideoPlayer;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		85A989222F15728B062F5C1D4302B8D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -560,7 +665,6 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -568,7 +672,6 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -599,14 +702,44 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
 		};
-		DA5BAC8318CBCD3168EECB158603567E /* Release */ = {
+		A00E448C8A61369CD0F285D5ECD1190E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A45F8837796138EC8E0EF7F2C8B19DE5 /* SwiftVideoRecorder.xcconfig */;
+			baseConfigurationReference = B79FDAA50496921CC1F51060CEAD6690 /* SwiftVideoPlayer.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftVideoPlayer/SwiftVideoPlayer-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftVideoPlayer/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwiftVideoPlayer/SwiftVideoPlayer.modulemap";
+				PRODUCT_NAME = SwiftVideoPlayer;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		EE0A454F0A8834A3592A5A9B274ED3F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1F5BAAC3B9EEC24EF5F8ABD9B3A2EC3 /* SwiftVideoRecorder.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -636,9 +769,9 @@
 			};
 			name = Release;
 		};
-		E70ADC71543F82420CBC3432F99D5708 /* Release */ = {
+		F410D4B4BF123BECCD148FC579D45D5E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4C2A120557F082F77225A40F3CD573C1 /* Pods-SwiftVideoRecorder_Example.release.xcconfig */;
+			baseConfigurationReference = DC4CB34B3045290E4DABE46C354604CE /* Pods-SwiftVideoRecorder_Example.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -662,17 +795,57 @@
 				PRODUCT_NAME = Pods_SwiftVideoRecorder_Example;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
+		};
+		F518B4E025E0262A289019F4E9CAE2AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1F5BAAC3B9EEC24EF5F8ABD9B3A2EC3 /* SwiftVideoRecorder.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftVideoRecorder/SwiftVideoRecorder-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftVideoRecorder/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwiftVideoRecorder/SwiftVideoRecorder.modulemap";
+				PRODUCT_NAME = SwiftVideoRecorder;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		14D27E0A973265A25BCB08F68D91E4AE /* Build configuration list for PBXNativeTarget "SwiftVideoRecorder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F518B4E025E0262A289019F4E9CAE2AF /* Debug */,
+				EE0A454F0A8834A3592A5A9B274ED3F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -682,29 +855,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		6AF4E05ED743B0A6F3547F311DB748C5 /* Build configuration list for PBXNativeTarget "SwiftVideoPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A00E448C8A61369CD0F285D5ECD1190E /* Debug */,
+				7D773B6AFE2EC5B8608E774254323851 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		88D8BB26ABFA0A1B7A51EC363E748516 /* Build configuration list for PBXNativeTarget "Pods-SwiftVideoRecorder_Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F410D4B4BF123BECCD148FC579D45D5E /* Debug */,
+				6D53772D99B6C874A013635720C4233C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		BE13801341B0E801D675D68FD34025E8 /* Build configuration list for PBXNativeTarget "Pods-SwiftVideoRecorder_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				85A989222F15728B062F5C1D4302B8D2 /* Debug */,
 				5A3A108D3577A3BB209C47F1665D3717 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F2C06D240FF49BE1491BC35F669D7991 /* Build configuration list for PBXNativeTarget "SwiftVideoRecorder" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				619B75165166E2D458A79FD5BDD306E9 /* Debug */,
-				DA5BAC8318CBCD3168EECB158603567E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FE904D9B2FCC8AACEBAA1CB3453FB291 /* Build configuration list for PBXNativeTarget "Pods-SwiftVideoRecorder_Example" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				154F5F083B62CE08F5989EA1D9AB7F97 /* Debug */,
-				E70ADC71543F82420CBC3432F99D5708 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
