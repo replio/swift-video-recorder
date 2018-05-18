@@ -4,7 +4,9 @@
 
 import UIKit
 import AVFoundation
-
+public protocol RecorderDelegate {
+    func swiftVideoRecorder(didCompleteRecordingWithUrl url: URL)
+}
 open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
     private static let MAX_DURATION = 60.0
     private static let INTERVAL = 1.0
@@ -15,6 +17,7 @@ open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
     var outputs = [URL]()
     var timer: Timer? = nil
     var time: Double = 0.0
+    public var delegate: RecorderDelegate?
     public private(set) var isRecording: Bool = false
 
     public init() {
@@ -63,8 +66,13 @@ open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
             videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
             videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
             videoPreviewLayer?.frame = view.layer.bounds
-            view.layer.addSublayer(videoPreviewLayer!)
-            
+            //добавляем layer превью перед всеми лэйэрами
+            if let sublayers = view.layer.sublayers, !sublayers.isEmpty {
+                view.layer.insertSublayer(videoPreviewLayer!, below: sublayers[0])
+            }
+            else {
+                view.layer.addSublayer(videoPreviewLayer!)
+            }
             captureSession?.addOutput(movieFileOutput)
             captureSession?.startRunning()
         }
@@ -188,7 +196,7 @@ open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
         videoExporter?.exportAsynchronously(completionHandler: { () -> Void in
             print("video exporting complete", outputURL)
             DispatchQueue.main.async {
-                self.swiftVideoRecorder(didCompleteRecordingWithUrl: outputURL)
+                self.delegate?.swiftVideoRecorder(didCompleteRecordingWithUrl: outputURL)
             }
         })
     }
@@ -204,7 +212,4 @@ open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
         timer = nil
         time = 0.0
     }
-    
-    // Delegate methods
-    open func swiftVideoRecorder(didCompleteRecordingWithUrl url: URL) {}
 }

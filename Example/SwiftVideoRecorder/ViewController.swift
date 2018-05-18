@@ -10,7 +10,7 @@ import UIKit
 import SwiftVideoRecorder
 import SwiftVideoPlayer
 
-class ViewController: RecorderVC {
+class ViewController: RecorderVC, RecorderDelegate {
     var recordButton: UIButton = {
         var button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -26,6 +26,7 @@ class ViewController: RecorderVC {
     
     override init() {
         super.init()
+        self.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,12 +35,25 @@ class ViewController: RecorderVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
+        
+        view.addSubview(recordButton)
+        view.addSubview(switchButton)
+        
+        recordButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
+        recordButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
+        recordButton.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -10).isActive = true
+        recordButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        switchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+        switchButton.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 10).isActive = true
+        switchButton.heightAnchor.constraint(equalTo: recordButton.heightAnchor).isActive = true
+        switchButton.bottomAnchor.constraint(equalTo: recordButton.bottomAnchor).isActive = true
+        
         recordButton.addTarget(self, action: #selector(recordButtonAction), for: .touchUpInside)
         switchButton.addTarget(self, action: #selector(switchButtonAction), for: .touchUpInside)
     }
     
-    override func swiftVideoRecorder(didCompleteRecordingWithUrl url: URL) {
+    func swiftVideoRecorder(didCompleteRecordingWithUrl url: URL) {
         self.present(SwiftVideoPlayerVC([Item(videoURL: url, previewURL: nil)]), animated: true, completion: nil)
     }
     
@@ -56,21 +70,6 @@ class ViewController: RecorderVC {
     
     @objc func switchButtonAction() {
         self.switchCamera()
-    }
-    
-    func setupViews() {
-        view.addSubview(recordButton)
-        view.addSubview(switchButton)
-        
-        recordButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
-        recordButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
-        recordButton.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -10).isActive = true
-        recordButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        switchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
-        switchButton.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 10).isActive = true
-        switchButton.heightAnchor.constraint(equalTo: recordButton.heightAnchor).isActive = true
-        switchButton.bottomAnchor.constraint(equalTo: recordButton.bottomAnchor).isActive = true
     }
 }
 
