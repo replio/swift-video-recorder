@@ -75,7 +75,6 @@ class ViewController: RecorderVC, RecorderDelegate {
     
     override func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         super.captureOutput(output, didOutput: sampleBuffer, from: connection)
-        print("app")
     }
 }
 

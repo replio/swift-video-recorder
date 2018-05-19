@@ -236,7 +236,5 @@ open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
 }
 
 extension RecorderVC: AVCaptureVideoDataOutputSampleBufferDelegate {
-    open func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        print("pod")
-    }
+    open func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {}
 }
