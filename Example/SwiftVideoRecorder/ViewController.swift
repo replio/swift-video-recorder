@@ -9,6 +9,7 @@
 import UIKit
 import SwiftVideoRecorder
 import SwiftVideoPlayer
+import AVKit
 
 class ViewController: RecorderVC, RecorderDelegate {
     var recordButton: UIButton = {
@@ -70,6 +71,11 @@ class ViewController: RecorderVC, RecorderDelegate {
     
     @objc func switchButtonAction() {
         self.switchCamera()
+    }
+    
+    override func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        super.captureOutput(output, didOutput: sampleBuffer, from: connection)
+        print("app")
     }
 }
 

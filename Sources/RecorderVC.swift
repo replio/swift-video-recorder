@@ -55,6 +55,7 @@ open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
             
             do {
                 captureSession = AVCaptureSession()
+                captureSession?.beginConfiguration()
                 let frontCaptureDeviceInput = try AVCaptureDeviceInput(device:captureDeviceVideoFront!)
                 let audioCaptureDeviceInput = try AVCaptureDeviceInput(device:captureDeviceAudio!)
                 captureSession?.addInput(frontCaptureDeviceInput)
@@ -73,7 +74,27 @@ open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
             else {
                 view.layer.addSublayer(videoPreviewLayer!)
             }
-            captureSession?.addOutput(movieFileOutput)
+            //captureSession?.addOutput(movieFileOutput)
+            
+            let output = AVCaptureVideoDataOutput()
+            output.videoSettings = [
+                String(kCVPixelBufferPixelFormatTypeKey) : Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)
+            ]
+            
+            output.alwaysDiscardsLateVideoFrames = true
+            
+            if (captureSession?.canAddOutput(output))! {
+                captureSession?.addOutput(output)
+            }
+            else {
+                print("can't add output")
+            }
+            captureSession?.commitConfiguration()
+            
+            let queue = DispatchQueue(label: "output.queue")
+            output.setSampleBufferDelegate(self, queue: queue)
+            
+            
             captureSession?.startRunning()
         }
         else if videoAuthStatus == .notDetermined {
@@ -211,5 +232,11 @@ open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
         }
         timer = nil
         time = 0.0
+    }
+}
+
+extension RecorderVC: AVCaptureVideoDataOutputSampleBufferDelegate {
+    open func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        print("pod")
     }
 }
