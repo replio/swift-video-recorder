@@ -4,21 +4,24 @@
 
 import UIKit
 import AVFoundation
-public protocol RecorderDelegate {
-    func swiftVideoRecorder(didCompleteRecordingWithUrl url: URL)
-}
-open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
-    private static let MAX_DURATION = 60.0
-    private static let INTERVAL = 1.0
 
-    var captureSession: AVCaptureSession?
-    var videoPreviewLayer: AVCaptureVideoPreviewLayer?
-    let movieFileOutput = AVCaptureMovieFileOutput()
-    var outputs = [URL]()
-    var timer: Timer? = nil
-    var time: Double = 0.0
+public protocol RecorderDelegate {
+    func recorder(completeWithUrl url: URL)
+}
+
+open class RecorderVC: UIViewController {
     public var delegate: RecorderDelegate?
+    public private(set) var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     public private(set) var isRecording: Bool = false
+    
+    private var captureSession: AVCaptureSession?
+    
+    private var assetWriter: AVAssetWriter!
+    private var audioInput: AVAssetWriterInput!
+    private var videoInput: AVAssetWriterInput!
+    
+    private var startTime: CMTime = kCMTimeInvalid
+    private var duration: CMTime = kCMTimeZero
 
     public init() {
         super.init(nibName: nil, bundle: nil)
@@ -30,7 +33,6 @@ open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
 
     override open func viewDidLoad() {
         super.viewDidLoad()
-        print(#function)
         openCamera()
     }
     
@@ -67,21 +69,20 @@ open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
             videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
             videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
             videoPreviewLayer?.frame = view.layer.bounds
-            //добавляем layer превью перед всеми лэйэрами
+            //добавляем лэйер превью перед всеми лэйэрами
             if let sublayers = view.layer.sublayers, !sublayers.isEmpty {
                 view.layer.insertSublayer(videoPreviewLayer!, below: sublayers[0])
             }
             else {
                 view.layer.addSublayer(videoPreviewLayer!)
             }
-            //captureSession?.addOutput(movieFileOutput)
             
             let output = AVCaptureVideoDataOutput()
             output.videoSettings = [
                 String(kCVPixelBufferPixelFormatTypeKey) : Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)
             ]
             
-            output.alwaysDiscardsLateVideoFrames = true
+            output.alwaysDiscardsLateVideoFrames = false
             
             if (captureSession?.canAddOutput(output))! {
                 captureSession?.addOutput(output)
@@ -93,8 +94,6 @@ open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
             
             let queue = DispatchQueue(label: "output.queue")
             output.setSampleBufferDelegate(self, queue: queue)
-            
-            
             captureSession?.startRunning()
         }
         else if videoAuthStatus == .notDetermined {
@@ -117,30 +116,34 @@ open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
         }
     }
     
-    public func fileOutput(_ output:AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        print(#function, outputFileURL)
-        outputs.append(outputFileURL)
-        if !isRecording {
-            mergeVideoClips()
-        }
-    }
-    
-    @objc func timerAction() {
-        time+=RecorderVC.INTERVAL
-        print(#function, time)
-        if time >= RecorderVC.MAX_DURATION {
-            stopRecording()
-        }
-    }
-    
     public func startRecording() {
         print(#function)
         if !isRecording {
+            let outputURL = URL(fileURLWithPath: NSTemporaryDirectory().appending(UUID().uuidString).appending(".mov"))
+            do {
+                assetWriter = try AVAssetWriter(outputURL: outputURL, fileType: .mov)
+                assetWriter.shouldOptimizeForNetworkUse = true
+                let settings: [String: Any] = [AVVideoCodecKey: AVVideoCodecH264, AVVideoHeightKey: 450, AVVideoWidthKey: 800]
+                videoInput = AVAssetWriterInput(mediaType: .video, outputSettings: settings)
+                videoInput.transform = videoInput.transform.rotated(by: .pi / 2)
+                videoInput.transform = videoInput.transform.scaledBy(x: 1, y: -1)
+                videoInput.expectsMediaDataInRealTime = true
+                if assetWriter.canAdd(videoInput) {
+                    assetWriter.add(videoInput)
+                } else {
+                    print("recorder, could not add video input to session")
+                }
+                audioInput = AVAssetWriterInput(mediaType: .video, outputSettings: nil)
+                audioInput.expectsMediaDataInRealTime = true
+                if assetWriter.canAdd(audioInput) {
+                    assetWriter.add(audioInput)
+                } else {
+                    print("recorder, could not add audio input to session")
+                }
+            } catch {
+                print(error)
+            }
             isRecording = true
-            outputs.removeAll()
-            timer = Timer.scheduledTimer(timeInterval: RecorderVC.INTERVAL, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-            time = 0.0
-            resumeRecording()
         }
     }
     
@@ -148,17 +151,15 @@ open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
         print(#function)
         if isRecording {
             isRecording = false
-            if timer != nil {
-                timer!.invalidate()
+            assetWriter.endSession(atSourceTime: duration + startTime)
+            startTime = kCMTimeInvalid
+            duration = kCMTimeZero
+            assetWriter.finishWriting {
+                DispatchQueue.main.async {
+                    self.delegate?.recorder(completeWithUrl: self.assetWriter.outputURL)
+                }
             }
-            timer = nil
-            movieFileOutput.stopRecording()
         }
-    }
-    
-    private func resumeRecording() {
-        let path = NSTemporaryDirectory().appending(UUID().uuidString).appending(".mov")
-        movieFileOutput.startRecording(to: URL(fileURLWithPath: path) , recordingDelegate: self)
     }
     
     public func switchCamera() {
@@ -170,10 +171,6 @@ open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
          }!)
         captureSession!.addInput(newInput)
         captureSession?.commitConfiguration()
-        
-        if isRecording {
-            resumeRecording()
-        }
     }
     
     public func isFacingFront() -> Bool {
@@ -181,60 +178,26 @@ open class RecorderVC: UIViewController, AVCaptureFileOutputRecordingDelegate {
             (input as! AVCaptureDeviceInput).device.position == .front
         }
     }
-
-    private func mergeVideoClips() {
-        let composition = AVMutableComposition()
-        let videoTrack = composition.addMutableTrack(withMediaType: AVMediaType.video, preferredTrackID: kCMPersistentTrackID_Invalid)
-        let audioTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid)
-        var time: Double = 0.0
-        
-        for video in outputs {
-            let asset = AVAsset(url: video)
-
-            if let videoAssetTrack = asset.tracks(withMediaType: AVMediaType.video).first, let audioAssetTrack = asset.tracks(withMediaType: AVMediaType.audio).first {
-                let atTime = CMTime(seconds:time, preferredTimescale: 0)
-                do {
-                    try videoTrack?.insertTimeRange(CMTimeRangeMake(kCMTimeZero, asset.duration), of: videoAssetTrack, at: atTime)
-                    try audioTrack?.insertTimeRange(CMTimeRangeMake(kCMTimeZero, asset.duration), of: audioAssetTrack, at: atTime)
-                } catch {
-                    print("something bad happend I don't want to talk about it")
-                }
-                
-                time+=asset.duration.seconds
-            }
-        }
-
-        videoTrack?.preferredTransform = (videoTrack?.preferredTransform.rotated(by: .pi / 2))!
-        videoTrack?.preferredTransform = (videoTrack?.preferredTransform.scaledBy(x: 1, y: -1))!
-        
-        let videoName = UUID().uuidString.appending(".mov")
-        let videoExporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetMediumQuality)
-
-        let outputURL = URL(fileURLWithPath: NSTemporaryDirectory().appending(videoName))
-        videoExporter?.outputURL = outputURL
-        videoExporter?.shouldOptimizeForNetworkUse = true
-        videoExporter?.outputFileType = AVFileType.mov
-        videoExporter?.exportAsynchronously(completionHandler: { () -> Void in
-            print("video exporting complete", outputURL)
-            DispatchQueue.main.async {
-                self.delegate?.swiftVideoRecorder(didCompleteRecordingWithUrl: outputURL)
-            }
-        })
-    }
-
+    
     deinit {
         print(#function)
         captureSession = nil
         videoPreviewLayer = nil
-        outputs.removeAll()
-        if timer != nil {
-            timer!.invalidate()
-        }
-        timer = nil
-        time = 0.0
     }
 }
 
 extension RecorderVC: AVCaptureVideoDataOutputSampleBufferDelegate {
-    open func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {}
+    open func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
+        
+        if self.isRecording && !self.startTime.isValid {
+            startTime = timestamp
+            assetWriter.startWriting()
+            assetWriter.startSession(atSourceTime: timestamp)
+        }
+        duration = timestamp - startTime
+        if self.isRecording && videoInput.isReadyForMoreMediaData {
+            videoInput.append(sampleBuffer)
+        }
+    }
 }

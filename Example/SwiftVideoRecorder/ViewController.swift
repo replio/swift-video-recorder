@@ -54,7 +54,7 @@ class ViewController: RecorderVC, RecorderDelegate {
         switchButton.addTarget(self, action: #selector(switchButtonAction), for: .touchUpInside)
     }
     
-    func swiftVideoRecorder(didCompleteRecordingWithUrl url: URL) {
+    func recorder(completeWithUrl url: URL) {
         self.present(SwiftVideoPlayerVC([Item(videoURL: url, previewURL: nil)]), animated: true, completion: nil)
     }
     
