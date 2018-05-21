@@ -57,11 +57,11 @@ open class RecorderVC: UIViewController {
             
             do {
                 captureSession = AVCaptureSession()
-                captureSession?.beginConfiguration()
+                captureSession!.beginConfiguration()
                 let frontCaptureDeviceInput = try AVCaptureDeviceInput(device:captureDeviceVideoFront!)
                 let audioCaptureDeviceInput = try AVCaptureDeviceInput(device:captureDeviceAudio!)
-                captureSession?.addInput(frontCaptureDeviceInput)
-                captureSession?.addInput(audioCaptureDeviceInput)
+                captureSession!.addInput(frontCaptureDeviceInput)
+                captureSession!.addInput(audioCaptureDeviceInput)
             } catch {
                 print(error)
             }
@@ -77,23 +77,32 @@ open class RecorderVC: UIViewController {
                 view.layer.addSublayer(videoPreviewLayer!)
             }
             
-            let output = AVCaptureVideoDataOutput()
-            output.videoSettings = [
+            let videoOutput = AVCaptureVideoDataOutput()
+            videoOutput.videoSettings = [
                 String(kCVPixelBufferPixelFormatTypeKey) : Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)
             ]
-            
-            output.alwaysDiscardsLateVideoFrames = false
-            
-            if (captureSession?.canAddOutput(output))! {
-                captureSession?.addOutput(output)
+            videoOutput.alwaysDiscardsLateVideoFrames = false
+            if captureSession!.canAddOutput(videoOutput) {
+                captureSession!.addOutput(videoOutput)
             }
             else {
-                print("can't add output")
+                print("can't add video output")
             }
+            
+            let audioOutput = AVCaptureAudioDataOutput()
+            audioOutput.recommendedAudioSettingsForAssetWriter(writingTo: .mov)
+            if captureSession!.canAddOutput(audioOutput) {
+                captureSession!.addOutput(audioOutput)
+            }
+            else {
+                print("can't add audio output")
+            }
+            
             captureSession?.commitConfiguration()
             
             let queue = DispatchQueue(label: "output.queue")
-            output.setSampleBufferDelegate(self, queue: queue)
+            videoOutput.setSampleBufferDelegate(self, queue: queue)
+            audioOutput.setSampleBufferDelegate(self, queue: queue)
             captureSession?.startRunning()
         }
         else if videoAuthStatus == .notDetermined {
@@ -133,7 +142,7 @@ open class RecorderVC: UIViewController {
                 } else {
                     print("recorder, could not add video input to session")
                 }
-                audioInput = AVAssetWriterInput(mediaType: .video, outputSettings: nil)
+                audioInput = AVAssetWriterInput(mediaType: .audio, outputSettings: nil)
                 audioInput.expectsMediaDataInRealTime = true
                 if assetWriter.canAdd(audioInput) {
                     assetWriter.add(audioInput)
@@ -186,18 +195,26 @@ open class RecorderVC: UIViewController {
     }
 }
 
-extension RecorderVC: AVCaptureVideoDataOutputSampleBufferDelegate {
+extension RecorderVC: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate {
     open func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
-        
-        if self.isRecording && !self.startTime.isValid {
-            startTime = timestamp
-            assetWriter.startWriting()
-            assetWriter.startSession(atSourceTime: timestamp)
-        }
-        duration = timestamp - startTime
-        if self.isRecording && videoInput.isReadyForMoreMediaData {
-            videoInput.append(sampleBuffer)
+        if self.isRecording {
+            let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
+            if !self.startTime.isValid {
+                startTime = timestamp
+                assetWriter.startWriting()
+                assetWriter.startSession(atSourceTime: timestamp)
+            }
+            duration = timestamp - startTime
+            if output is AVCaptureVideoDataOutput {
+                if videoInput.isReadyForMoreMediaData {
+                    videoInput.append(sampleBuffer)
+                }
+            }
+            else if output is AVCaptureAudioDataOutput {
+                if audioInput.isReadyForMoreMediaData {
+                    audioInput.append(sampleBuffer)
+                }
+            }
         }
     }
 }
