@@ -87,6 +87,14 @@ open class RecorderVC: UIViewController {
             else {
                 print("can't add video output")
             }
+            videoOutput.connections.forEach { (connection) in
+                if connection.isVideoOrientationSupported {
+                    connection.videoOrientation = AVCaptureVideoOrientation.portrait
+                }
+                if connection.isVideoMirroringSupported {
+                    connection.isVideoMirrored = true
+                }
+            }
             
             let audioOutput = AVCaptureAudioDataOutput()
             audioOutput.recommendedAudioSettingsForAssetWriter(writingTo: .mov)
@@ -131,10 +139,10 @@ open class RecorderVC: UIViewController {
             do {
                 assetWriter = try AVAssetWriter(outputURL: outputURL, fileType: .mov)
                 assetWriter.shouldOptimizeForNetworkUse = true
-                let settings: [String: Any] = [AVVideoCodecKey: AVVideoCodecH264, AVVideoHeightKey: 450, AVVideoWidthKey: 800]
+                let settings: [String: Any] = [AVVideoCodecKey: AVVideoCodecH264, AVVideoHeightKey: 800, AVVideoWidthKey: 450]
                 videoInput = AVAssetWriterInput(mediaType: .video, outputSettings: settings)
-                videoInput.transform = videoInput.transform.rotated(by: .pi / 2)
-                videoInput.transform = videoInput.transform.scaledBy(x: 1, y: -1)
+                //videoInput.transform = videoInput.transform.rotated(by: .pi / 2)
+                //videoInput.transform = videoInput.transform.scaledBy(x: -1, y: 1)
                 videoInput.expectsMediaDataInRealTime = true
                 if assetWriter.canAdd(videoInput) {
                     assetWriter.add(videoInput)
@@ -180,13 +188,23 @@ open class RecorderVC: UIViewController {
     
     public func switchCamera() {
         print(#function)
-        captureSession?.beginConfiguration()
+        captureSession!.beginConfiguration()
         let newInput = try! AVCaptureDeviceInput(device: AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: isFacingFront() ? .back : .front).devices.first!)
         captureSession!.removeInput(captureSession!.inputs.first { input in
             (input as! AVCaptureDeviceInput).device.hasMediaType(.video)
          }!)
         captureSession!.addInput(newInput)
-        captureSession?.commitConfiguration()
+        captureSession!.outputs.forEach { (output) in
+            output.connections.forEach { (connection) in
+                if connection.isVideoOrientationSupported {
+                    connection.videoOrientation = AVCaptureVideoOrientation.portrait
+                }
+                if connection.isVideoMirroringSupported {
+                    connection.isVideoMirrored = isFacingFront()
+                }
+            }
+        }
+        captureSession!.commitConfiguration()
     }
     
     public func isFacingFront() -> Bool {
