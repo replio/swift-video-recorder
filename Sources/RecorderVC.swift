@@ -158,13 +158,21 @@ open class RecorderVC: UIViewController {
     public func stopRecording() {
         print(#function)
         if isRecording {
-            isRecording = false
-            assetWriter.endSession(atSourceTime: duration + startTime)
-            startTime = kCMTimeInvalid
-            duration = kCMTimeZero
-            assetWriter.finishWriting {
-                DispatchQueue.main.async {
-                    self.delegate?.recorder(completeWithUrl: self.assetWriter.outputURL)
+            if startTime.isValid {
+                isRecording = false
+                assetWriter.endSession(atSourceTime: duration + startTime)
+                startTime = kCMTimeInvalid
+                duration = kCMTimeZero
+                assetWriter.finishWriting {
+                    DispatchQueue.main.async {
+                        self.delegate?.recorder(completeWithUrl: self.assetWriter.outputURL)
+                    }
+                }
+            }
+            else {
+                //если запись началась, но startSession еще не вызван, повторяем это метод с небольшой паузой
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.stopRecording()
                 }
             }
         }
@@ -199,9 +207,9 @@ extension RecorderVC: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAud
         if self.isRecording {
             let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
             if !self.startTime.isValid {
-                startTime = timestamp
                 assetWriter.startWriting()
                 assetWriter.startSession(atSourceTime: timestamp)
+                startTime = timestamp
             }
             duration = timestamp - startTime
             if output is AVCaptureVideoDataOutput {
