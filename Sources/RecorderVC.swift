@@ -13,7 +13,7 @@ open class RecorderVC: UIViewController {
     public var delegate: RecorderDelegate?
     public private(set) var isRecording: Bool = false
     public private(set) var videoPreviewLayer: AVCaptureVideoPreviewLayer?
-    public private(set) var captureSession: AVCaptureSession?
+    public var captureSession: AVCaptureSession?
     
     private var assetWriter: AVAssetWriter!
     private var audioInput: AVAssetWriterInput!
