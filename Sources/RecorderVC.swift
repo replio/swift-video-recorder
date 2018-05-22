@@ -9,21 +9,28 @@ public protocol RecorderDelegate {
     func recorder(completeWithUrl url: URL)
 }
 
+public enum WriterType: String {
+    case audioAndVideo, onlyVideo, onlyAudio
+}
+
 open class RecorderVC: UIViewController {
     public var delegate: RecorderDelegate?
     public private(set) var isRecording: Bool = false
     public private(set) var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     public var captureSession: AVCaptureSession?
     
-    private var assetWriter: AVAssetWriter!
-    private var audioInput: AVAssetWriterInput!
-    private var videoInput: AVAssetWriterInput!
+    private var assetWriter: AVAssetWriter? = nil
+    private var audioInput: AVAssetWriterInput? = nil
+    private var videoInput: AVAssetWriterInput? = nil
     
     private var startTime: CMTime = kCMTimeInvalid
     private var duration: CMTime = kCMTimeZero
+    
+    private var writerType: WriterType = .audioAndVideo
 
-    public init() {
+    public init(recorderType: WriterType = .audioAndVideo) {
         super.init(nibName: nil, bundle: nil)
+        self.writerType = recorderType
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -133,31 +140,33 @@ open class RecorderVC: UIViewController {
     }
     
     public func startRecording() {
-        print(#function)
+        print(#function, writerType.rawValue)
         if !isRecording {
             let outputURL = URL(fileURLWithPath: NSTemporaryDirectory().appending(UUID().uuidString).appending(".mov"))
             do {
                 assetWriter = try AVAssetWriter(outputURL: outputURL, fileType: .mov)
-                assetWriter.shouldOptimizeForNetworkUse = true
+            } catch {
+                print(error)
+            }
+            assetWriter!.shouldOptimizeForNetworkUse = true
+            if writerType == .audioAndVideo || writerType == .onlyVideo {
                 let settings: [String: Any] = [AVVideoCodecKey: AVVideoCodecH264, AVVideoHeightKey: 800, AVVideoWidthKey: 450]
                 videoInput = AVAssetWriterInput(mediaType: .video, outputSettings: settings)
-                //videoInput.transform = videoInput.transform.rotated(by: .pi / 2)
-                //videoInput.transform = videoInput.transform.scaledBy(x: -1, y: 1)
-                videoInput.expectsMediaDataInRealTime = true
-                if assetWriter.canAdd(videoInput) {
-                    assetWriter.add(videoInput)
+                videoInput!.expectsMediaDataInRealTime = true
+                if assetWriter!.canAdd(videoInput!) {
+                    assetWriter!.add(videoInput!)
                 } else {
                     print("recorder, could not add video input to session")
                 }
+            }
+            if writerType == .audioAndVideo || writerType == .onlyAudio {
                 audioInput = AVAssetWriterInput(mediaType: .audio, outputSettings: nil)
-                audioInput.expectsMediaDataInRealTime = true
-                if assetWriter.canAdd(audioInput) {
-                    assetWriter.add(audioInput)
+                audioInput!.expectsMediaDataInRealTime = true
+                if assetWriter!.canAdd(audioInput!) {
+                    assetWriter!.add(audioInput!)
                 } else {
                     print("recorder, could not add audio input to session")
                 }
-            } catch {
-                print(error)
             }
             isRecording = true
         }
@@ -168,12 +177,14 @@ open class RecorderVC: UIViewController {
         if isRecording {
             if startTime.isValid {
                 isRecording = false
-                assetWriter.endSession(atSourceTime: duration + startTime)
+                videoInput?.markAsFinished()
+                audioInput?.markAsFinished()
+                assetWriter!.endSession(atSourceTime: duration + startTime)
                 startTime = kCMTimeInvalid
                 duration = kCMTimeZero
-                assetWriter.finishWriting {
+                assetWriter!.finishWriting {
                     DispatchQueue.main.async {
-                        self.delegate?.recorder(completeWithUrl: self.assetWriter.outputURL)
+                        self.delegate?.recorder(completeWithUrl: self.assetWriter!.outputURL)
                     }
                 }
             }
@@ -225,19 +236,19 @@ extension RecorderVC: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAud
         if self.isRecording {
             let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
             if !self.startTime.isValid {
-                assetWriter.startWriting()
-                assetWriter.startSession(atSourceTime: timestamp)
+                assetWriter!.startWriting()
+                assetWriter!.startSession(atSourceTime: timestamp)
                 startTime = timestamp
             }
             duration = timestamp - startTime
             if output is AVCaptureVideoDataOutput {
-                if videoInput.isReadyForMoreMediaData {
-                    videoInput.append(sampleBuffer)
+                if videoInput != nil && videoInput!.isReadyForMoreMediaData {
+                    videoInput!.append(sampleBuffer)
                 }
             }
             else if output is AVCaptureAudioDataOutput {
-                if audioInput.isReadyForMoreMediaData {
-                    audioInput.append(sampleBuffer)
+                if audioInput != nil && audioInput!.isReadyForMoreMediaData {
+                    audioInput!.append(sampleBuffer)
                 }
             }
         }

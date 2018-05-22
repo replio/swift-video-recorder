@@ -25,8 +25,8 @@ class ViewController: RecorderVC, RecorderDelegate {
         return button
     }()
     
-    override init() {
-        super.init()
+    init() {
+        super.init(recorderType: .audioAndVideo)
         self.delegate = self
     }
     
@@ -55,7 +55,7 @@ class ViewController: RecorderVC, RecorderDelegate {
     }
     
     func recorder(completeWithUrl url: URL) {
-        self.present(SwiftVideoPlayerVC([Item(videoURL: url, previewURL: nil)]), animated: true, completion: nil)
+        self.present(SwiftVideoPlayerVC([Item(videoURL: url, previewURL: nil)], videoGravity: .resizeAspectFill), animated: true, completion: nil)
     }
     
     @objc func recordButtonAction() {
