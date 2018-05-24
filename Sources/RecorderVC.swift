@@ -142,9 +142,9 @@ open class RecorderVC: UIViewController {
     public func startRecording() {
         print(#function, writerType.rawValue)
         if !isRecording {
-            let outputURL = URL(fileURLWithPath: NSTemporaryDirectory().appending(UUID().uuidString).appending(".mov"))
+            let outputURL = URL(fileURLWithPath: NSTemporaryDirectory().appending(UUID().uuidString).appending(".mp4"))
             do {
-                assetWriter = try AVAssetWriter(outputURL: outputURL, fileType: .mov)
+                assetWriter = try AVAssetWriter(outputURL: outputURL, fileType: .mp4)
             } catch {
                 print(error)
             }
@@ -156,15 +156,18 @@ open class RecorderVC: UIViewController {
                 if assetWriter!.canAdd(videoInput!) {
                     assetWriter!.add(videoInput!)
                 } else {
+                    videoInput = nil
                     print("recorder, could not add video input to session")
                 }
             }
             if writerType == .audioAndVideo || writerType == .onlyAudio {
-                audioInput = AVAssetWriterInput(mediaType: .audio, outputSettings: nil)
+                let settings: [String: Any] = [AVFormatIDKey: kAudioFormatMPEG4AAC, AVSampleRateKey: 44100.0, AVNumberOfChannelsKey: 1]
+                audioInput = AVAssetWriterInput(mediaType: .audio, outputSettings: settings)
                 audioInput!.expectsMediaDataInRealTime = true
                 if assetWriter!.canAdd(audioInput!) {
                     assetWriter!.add(audioInput!)
                 } else {
+                    audioInput = nil
                     print("recorder, could not add audio input to session")
                 }
             }
@@ -190,7 +193,7 @@ open class RecorderVC: UIViewController {
             }
             else {
                 //если запись началась, но startSession еще не вызван, повторяем это метод с небольшой паузой
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                     self.stopRecording()
                 }
             }
@@ -233,6 +236,14 @@ open class RecorderVC: UIViewController {
 
 extension RecorderVC: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate {
     open func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        /*
+        if let formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer) {
+            if let audioStreamBasicDescription = CMAudioFormatDescriptionGetStreamBasicDescription(formatDescription) {
+                print(audioStreamBasicDescription.pointee)
+            }
+        }
+        */
+    
         if self.isRecording {
             let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
             if !self.startTime.isValid {
