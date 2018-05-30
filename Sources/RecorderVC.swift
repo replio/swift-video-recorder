@@ -27,16 +27,16 @@ open class RecorderVC: UIViewController {
     private var duration: CMTime = kCMTimeZero
     
     private var writerType: WriterType = .audioAndVideo
-
+    
     public init(recorderType: WriterType = .audioAndVideo) {
         super.init(nibName: nil, bundle: nil)
         self.writerType = recorderType
     }
-
+    
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         openCamera()
@@ -46,12 +46,12 @@ open class RecorderVC: UIViewController {
         super.viewWillAppear(animated)
         captureSession?.startRunning()
     }
-
+    
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         captureSession?.stopRunning()
     }
-
+    
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
@@ -66,6 +66,7 @@ open class RecorderVC: UIViewController {
             do {
                 captureSession = AVCaptureSession()
                 captureSession!.beginConfiguration()
+                captureSession?.sessionPreset = .medium
                 let frontCaptureDeviceInput = try AVCaptureDeviceInput(device:captureDeviceVideoFront!)
                 let audioCaptureDeviceInput = try AVCaptureDeviceInput(device:captureDeviceAudio!)
                 captureSession!.addInput(frontCaptureDeviceInput)
@@ -152,7 +153,7 @@ open class RecorderVC: UIViewController {
             }
             assetWriter!.shouldOptimizeForNetworkUse = true
             if writerType == .audioAndVideo || writerType == .onlyVideo {
-                let settings: [String: Any] = [AVVideoCodecKey: AVVideoCodecH264, AVVideoHeightKey: 800, AVVideoWidthKey: 450]
+                let settings: [String: Any] = [AVVideoCodecKey: AVVideoCodecH264, AVVideoHeightKey: 480, AVVideoWidthKey: 360]
                 videoInput = AVAssetWriterInput(mediaType: .video, outputSettings: settings)
                 videoInput!.expectsMediaDataInRealTime = true
                 if assetWriter!.canAdd(videoInput!) {
@@ -208,7 +209,7 @@ open class RecorderVC: UIViewController {
         let newInput = try! AVCaptureDeviceInput(device: AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: isFacingFront() ? .back : .front).devices.first!)
         captureSession!.removeInput(captureSession!.inputs.first { input in
             (input as! AVCaptureDeviceInput).device.hasMediaType(.video)
-         }!)
+            }!)
         captureSession!.addInput(newInput)
         captureSession!.outputs.forEach { (output) in
             output.connections.forEach { (connection) in
