@@ -70,11 +70,14 @@ class ViewController: RecorderVC, RecorderDelegate {
     }
     
     @objc func switchButtonAction() {
-        self.switchCamera()
+        //self.switchCamera()
+        self.show(UIViewController(nibName: nil, bundle: nil), sender: self)
     }
-    
+    var cnt = 0
     override func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         super.captureOutput(output, didOutput: sampleBuffer, from: connection)
+        cnt+=1
+        print("hello", cnt)
     }
 }
 

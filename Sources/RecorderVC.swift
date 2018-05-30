@@ -44,10 +44,12 @@ open class RecorderVC: UIViewController {
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        captureSession?.stopRunning()
     }
 
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        captureSession?.stopRunning()
     }
 
     override open func viewDidLayoutSubviews() {
@@ -236,14 +238,6 @@ open class RecorderVC: UIViewController {
 
 extension RecorderVC: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate {
     open func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        /*
-        if let formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer) {
-            if let audioStreamBasicDescription = CMAudioFormatDescriptionGetStreamBasicDescription(formatDescription) {
-                print(audioStreamBasicDescription.pointee)
-            }
-        }
-        */
-    
         if self.isRecording {
             let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
             if !self.startTime.isValid {
