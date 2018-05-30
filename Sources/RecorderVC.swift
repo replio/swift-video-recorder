@@ -44,7 +44,7 @@ open class RecorderVC: UIViewController {
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        captureSession?.stopRunning()
+        captureSession?.startRunning()
     }
 
     override open func viewWillDisappear(_ animated: Bool) {
