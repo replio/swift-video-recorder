@@ -17,7 +17,7 @@ open class RecorderView: UIView {
     
     public init() {
         super.init(frame: CGRect())
-        self.videoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.recorder.captureSession!)
+        self.videoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.recorder.captureSession)
         self.videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
         //добавляем лэйер превью перед всеми лэйэрами
         if let sublayers = self.layer.sublayers, !sublayers.isEmpty {

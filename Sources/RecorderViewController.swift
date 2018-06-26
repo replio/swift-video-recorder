@@ -34,12 +34,12 @@ open class RecorderViewController: UIViewController {
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        recorderView.recorder.captureSession?.startRunning()
+        recorderView.recorder.captureSession.startRunning()
     }
     
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        recorderView.recorder.captureSession?.stopRunning()
+        recorderView.recorder.captureSession.stopRunning()
     }
     
     override open func viewDidLayoutSubviews() {

@@ -9,7 +9,6 @@ import Foundation
 import AVFoundation
 
 open class Recorder: NSObject {
-    public typealias OpenedListener = (() -> ())
     public typealias VideoListener = (URL) -> ()
     public typealias SampleBufferListener = (CMSampleBuffer) -> ()
     
@@ -17,7 +16,7 @@ open class Recorder: NSObject {
     public var sampleBufferListeners: [SampleBufferListener] = [SampleBufferListener]()
     
     public private(set) var isRecording: Bool = false
-    public var captureSession: AVCaptureSession? = AVCaptureSession()
+    public var captureSession: AVCaptureSession = AVCaptureSession()
     
     private var assetWriter: AVAssetWriter? = nil
     private var audioInput: AVAssetWriterInput? = nil
@@ -25,6 +24,8 @@ open class Recorder: NSObject {
     
     private var startTime: CMTime = kCMTimeInvalid
     private var duration: CMTime = kCMTimeZero
+    
+    private var lastVideoSampleBuffer: CMSampleBuffer? = nil
     
     public var isFacingFront: Bool = true {
         didSet {
@@ -48,8 +49,8 @@ open class Recorder: NSObject {
                 String(kCVPixelBufferPixelFormatTypeKey) : Int(kCVPixelFormatType_32BGRA)
             ]
             videoOutput.alwaysDiscardsLateVideoFrames = false
-            if captureSession!.canAddOutput(videoOutput) {
-                captureSession!.addOutput(videoOutput)
+            if captureSession.canAddOutput(videoOutput) {
+                captureSession.addOutput(videoOutput)
             }
             else {
                 print("can't add video output")
@@ -57,8 +58,8 @@ open class Recorder: NSObject {
             
             let audioOutput = AVCaptureAudioDataOutput()
             audioOutput.recommendedAudioSettingsForAssetWriter(writingTo: .mov)
-            if captureSession!.canAddOutput(audioOutput) {
-                captureSession!.addOutput(audioOutput)
+            if captureSession.canAddOutput(audioOutput) {
+                captureSession.addOutput(audioOutput)
             }
             else {
                 print("can't add audio output")
@@ -69,6 +70,7 @@ open class Recorder: NSObject {
             let queue = DispatchQueue.main
             videoOutput.setSampleBufferDelegate(self, queue: queue)
             audioOutput.setSampleBufferDelegate(self, queue: queue)
+            captureSession.startRunning()
         }
         else if videoAuthStatus == .notDetermined {
             AVCaptureDevice.requestAccess(for: .video) { (granted) in
@@ -94,25 +96,25 @@ open class Recorder: NSObject {
         print(#function)
         let captureDeviceVideoFront = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: isFacingFront ? .front : .back).devices.first
         let captureDeviceAudio = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInMicrophone], mediaType: .audio, position: .unspecified).devices.first
-        captureSession!.beginConfiguration()
-        if captureSession!.inputs.contains(where: { (input) -> Bool in
+        captureSession.beginConfiguration()
+        if captureSession.inputs.contains(where: { (input) -> Bool in
             (input as! AVCaptureDeviceInput).device.hasMediaType(.video)
         }) {
-            captureSession!.removeInput(captureSession!.inputs.first { input in
+            captureSession.removeInput(captureSession.inputs.first { input in
                 (input as! AVCaptureDeviceInput).device.hasMediaType(.video)
                 }!)
         }
-        if captureSession!.inputs.contains(where: { (input) -> Bool in
+        if captureSession.inputs.contains(where: { (input) -> Bool in
             (input as! AVCaptureDeviceInput).device.hasMediaType(.audio)
         }) {
-            captureSession!.removeInput(captureSession!.inputs.first { input in
+            captureSession.removeInput(captureSession.inputs.first { input in
                 (input as! AVCaptureDeviceInput).device.hasMediaType(.audio)
                 }!)
         }
         let frontCaptureDeviceInput = try! AVCaptureDeviceInput(device: captureDeviceVideoFront!)
         
         let audioCaptureDeviceInput = try! AVCaptureDeviceInput(device: captureDeviceAudio!)
-        captureSession!.addInput(frontCaptureDeviceInput)
+        captureSession.addInput(frontCaptureDeviceInput)
         
         var suitableFormat: AVCaptureDevice.Format?
         for format in captureDeviceVideoFront!.formats {
@@ -135,9 +137,9 @@ open class Recorder: NSObject {
             print(error)
         }
         
-        captureSession!.addInput(audioCaptureDeviceInput)
+        captureSession.addInput(audioCaptureDeviceInput)
         
-        captureSession!.outputs.forEach { (output) in
+        captureSession.outputs.forEach { (output) in
             output.connections.forEach { (connection) in
                 if connection.isVideoOrientationSupported {
                     connection.videoOrientation = AVCaptureVideoOrientation.portrait
@@ -148,7 +150,7 @@ open class Recorder: NSObject {
             }
         }
         
-        captureSession?.commitConfiguration()
+        captureSession.commitConfiguration()
     }
     
     public func startRecording() {
@@ -210,9 +212,30 @@ open class Recorder: NSObject {
         }
     }
     
+    public func takePhoto() -> UIImage? {
+        if lastVideoSampleBuffer != nil {
+            let imageBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(lastVideoSampleBuffer!)!
+            
+            let ciimage : CIImage = CIImage(cvPixelBuffer: imageBuffer)
+            
+            let image : UIImage = self.convert(cmage: ciimage)
+            return image
+        }
+        
+        return nil
+    }
+    
+    // Convert CIImage to CGImage
+    func convert(cmage:CIImage) -> UIImage
+    {
+        let context:CIContext = CIContext.init(options: nil)
+        let cgImage:CGImage = context.createCGImage(cmage, from: cmage.extent)!
+        let image:UIImage = UIImage.init(cgImage: cgImage)
+        return image
+    }
+    
     deinit {
         print(#function)
-        captureSession = nil
     }
 }
 
@@ -220,6 +243,9 @@ extension Recorder: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudio
     open func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         for listener in sampleBufferListeners {
             listener(sampleBuffer)
+        }
+        if output is AVCaptureVideoDataOutput {
+            lastVideoSampleBuffer = sampleBuffer
         }
         if self.isRecording {
             let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
