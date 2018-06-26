@@ -8,10 +8,10 @@
 
 import UIKit
 import SwiftVideoRecorder
-import SwiftVideoPlayer
 import AVKit
+import Photos
 
-class ViewController: RecorderVC, RecorderDelegate {
+class ViewController: RecorderViewController {
     var recordButton: UIButton = {
         var button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -25,9 +25,8 @@ class ViewController: RecorderVC, RecorderDelegate {
         return button
     }()
     
-    init() {
-        super.init(recorderType: .audioAndVideo)
-        self.delegate = self
+    override init() {
+        super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -52,32 +51,63 @@ class ViewController: RecorderVC, RecorderDelegate {
         
         recordButton.addTarget(self, action: #selector(recordButtonAction), for: .touchUpInside)
         switchButton.addTarget(self, action: #selector(switchButtonAction), for: .touchUpInside)
-    }
-    
-    func recorder(completeWithUrl url: URL) {
-        self.present(SwiftVideoPlayerVC([Item(videoURL: url, previewURL: nil)], videoGravity: .resizeAspectFill), animated: true, completion: nil)
+        
+        recorder.videoListeners.append { (url) in
+            self.saveToCameraRoll(url: url)
+        }
     }
     
     @objc func recordButtonAction() {
         print(#function)
-        if self.isRecording {
-            self.stopRecording()
+        if recorder.isRecording {
+            recorder.stopRecording()
         }
         else {
-            self.startRecording()
+            recorder.startRecording()
         }
-        recordButton.setTitle(self.isRecording ? "stop" : "record", for: .normal)
+        recordButton.setTitle(recorder.isRecording ? "stop" : "record", for: .normal)
     }
     
     @objc func switchButtonAction() {
-        //self.switchCamera()
-        self.show(UIViewController(nibName: nil, bundle: nil), sender: self)
+        recorder.isFacingFront = !recorder.isFacingFront
     }
-    var cnt = 0
-    override func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        super.captureOutput(output, didOutput: sampleBuffer, from: connection)
-        cnt+=1
-        print("hello", cnt)
+    
+    func saveToCameraRoll(url: URL) {
+        if PHPhotoLibrary.authorizationStatus() == .authorized {
+            PHPhotoLibrary.shared().performChanges({
+                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
+            }) { (saved, error) in
+                if saved {
+                    print(saved)
+                } else if error != nil {
+                    print(error!.localizedDescription)
+                }
+            }
+        }
+        else if PHPhotoLibrary.authorizationStatus() == .denied {
+            let alertController = UIAlertController(title: nil, message: NSLocalizedString("photo_library_permission", comment: ""), preferredStyle: .alert)
+            let settingsAction = UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .default) { (_) -> Void in
+                guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+                    return
+                }
+                if UIApplication.shared.canOpenURL(settingsUrl) {
+                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                        print("Settings opened: \(success)")
+                    })
+                }
+            }
+            let cancelAction = UIAlertAction(title: NSLocalizedString("close", comment: ""), style: .cancel, handler: nil)
+            alertController.addAction(cancelAction)
+            alertController.addAction(settingsAction)
+            self.present(alertController, animated: true)
+        }
+        else {
+            PHPhotoLibrary.requestAuthorization { status in
+                if status == .authorized {
+                    self.saveToCameraRoll(url: url)
+                }
+            }
+        }
     }
 }
 
