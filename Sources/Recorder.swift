@@ -69,8 +69,6 @@ open class Recorder: NSObject {
             
             setupInputs()
             
-            captureSession.commitConfiguration()
-            
             let queue = DispatchQueue(label: "recorder.queue")
             videoOutput.setSampleBufferDelegate(self, queue: queue)
             audioOutput.setSampleBufferDelegate(self, queue: queue)
@@ -285,7 +283,6 @@ extension Recorder: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudio
     }
     
     open func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        print(#function)
         for listener in metadataListeners {
             listener(output, metadataObjects, connection)
         }
