@@ -11,9 +11,11 @@ import AVFoundation
 open class Recorder: NSObject {
     public typealias VideoListener = (URL) -> ()
     public typealias SampleBufferListener = (AVCaptureOutput, CMSampleBuffer, AVCaptureConnection) -> ()
+    public typealias MetadataListener = (AVCaptureMetadataOutput, [AVMetadataObject], AVCaptureConnection) -> ()
     
     public var videoListeners: [VideoListener] = [VideoListener]()
     public var sampleBufferListeners: [SampleBufferListener] = [SampleBufferListener]()
+    public var metadataListeners: [MetadataListener] = [MetadataListener]()
     
     public private(set) var isRecording: Bool = false
     public var captureSession: AVCaptureSession = AVCaptureSession()
@@ -33,7 +35,7 @@ open class Recorder: NSObject {
         }
     }
     
-    override init() {
+    public override init() {
         super.init()
         openCamera()
     }
@@ -67,9 +69,22 @@ open class Recorder: NSObject {
             
             setupInputs()
             
-            let queue = DispatchQueue.main
+            captureSession.commitConfiguration()
+            
+            let queue = DispatchQueue(label: "recorder.queue")
             videoOutput.setSampleBufferDelegate(self, queue: queue)
             audioOutput.setSampleBufferDelegate(self, queue: queue)
+            
+            let metadataOutput = AVCaptureMetadataOutput()
+            if captureSession.canAddOutput(metadataOutput) {
+                captureSession.addOutput(metadataOutput)
+                metadataOutput.metadataObjectTypes = metadataOutput.availableMetadataObjectTypes
+            }
+            else {
+                print("can't add metadata output")
+            }
+            metadataOutput.setMetadataObjectsDelegate(self, queue: queue)
+            
             captureSession.startRunning()
         }
         else if videoAuthStatus == .notDetermined {
@@ -269,5 +284,10 @@ extension Recorder: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudio
         }
     }
     
-    open func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {}
+    open func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        print(#function)
+        for listener in metadataListeners {
+            listener(output, metadataObjects, connection)
+        }
+    }
 }
