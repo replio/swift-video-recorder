@@ -13,7 +13,6 @@ open class Recorder: NSObject {
     public typealias SampleBufferListener = (AVCaptureOutput, CMSampleBuffer, AVCaptureConnection) -> ()
     public typealias MetadataListener = (AVCaptureMetadataOutput, [AVMetadataObject], AVCaptureConnection) -> ()
     
-    public var videoListeners: [VideoListener] = [VideoListener]()
     public var sampleBufferListeners: [SampleBufferListener] = [SampleBufferListener]()
     public var metadataListeners: [MetadataListener] = [MetadataListener]()
     
@@ -198,7 +197,7 @@ open class Recorder: NSObject {
         }
     }
     
-    public func stopRecording() {
+    public func stopRecording(listener: @escaping VideoListener) {
         print(#function)
         if isRecording {
             if startTime.isValid {
@@ -210,16 +209,14 @@ open class Recorder: NSObject {
                 duration = kCMTimeZero
                 assetWriter!.finishWriting {
                     DispatchQueue.main.async {
-                        for listener in self.videoListeners {
-                            listener(self.assetWriter!.outputURL)
-                        }
+                        listener(self.assetWriter!.outputURL)
                     }
                 }
             }
             else {
                 //если запись началась, но startSession еще не вызван, повторяем это метод с небольшой паузой
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                    self.stopRecording()
+                    self.stopRecording(listener: listener)
                 }
             }
         }

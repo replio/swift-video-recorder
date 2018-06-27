@@ -47,10 +47,6 @@ class ViewController: RecorderViewController, UIImagePickerControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        recorder.videoListeners.append { (url) in
-            self.saveToCameraRoll(url: url)
-        }
-        
         view.addSubview(recordButton)
         recordButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
         recordButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -92,7 +88,9 @@ class ViewController: RecorderViewController, UIImagePickerControllerDelegate {
     @objc func recordButtonAction() {
         print(#function)
         if recorder.isRecording {
-            recorder.stopRecording()
+            recorder.stopRecording { (url) in
+                self.saveToCameraRoll(url: url)
+            }
         }
         else {
             recorder.startRecording()
