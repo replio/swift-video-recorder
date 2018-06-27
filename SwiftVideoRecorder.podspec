@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SwiftVideoRecorder'
-  s.version          = '0.4.0'
+  s.version          = '0.4.1'
   s.summary          = 'swift video recorder'
 
 # This description is used to generate tags and improve search results.

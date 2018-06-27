@@ -10,7 +10,7 @@ import AVFoundation
 
 open class Recorder: NSObject {
     public typealias VideoListener = (URL) -> ()
-    public typealias SampleBufferListener = (CMSampleBuffer) -> ()
+    public typealias SampleBufferListener = (AVCaptureOutput, CMSampleBuffer, AVCaptureConnection) -> ()
     
     public var videoListeners: [VideoListener] = [VideoListener]()
     public var sampleBufferListeners: [SampleBufferListener] = [SampleBufferListener]()
@@ -242,7 +242,7 @@ open class Recorder: NSObject {
 extension Recorder: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate, AVCaptureMetadataOutputObjectsDelegate {
     open func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         for listener in sampleBufferListeners {
-            listener(sampleBuffer)
+            listener(output, sampleBuffer, connection)
         }
         if output is AVCaptureVideoDataOutput {
             lastVideoSampleBuffer = sampleBuffer
